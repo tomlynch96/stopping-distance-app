@@ -79,7 +79,7 @@ st.markdown(f"""
 """)
 
 # --- Visual Scale ---
-max_scale = 300  # Max length of ruler in meters
+max_scale = 500  # Max length of ruler in meters
 
 fig2, ax2 = plt.subplots(figsize=(8, 1.5))
 ax2.set_xlim(0, max_scale)
@@ -102,7 +102,11 @@ for tick in range(0, max_scale + 1, 50):
     ax2.vlines(tick, 0.4, 0.6, color='black')
     ax2.text(tick, 0.65, f'{tick} m', ha='center', fontsize=8)
 
-ax2.set_title("Stopping Distance Scale (up to 300 m)")
+ax2.set_title("Stopping Distance Scale (up to 500 m)")
 ax2.legend(loc='upper right')
 
 st.pyplot(fig2)
+
+# --- Off the Scale Warning ---
+if stopping_distance > max_scale:
+    st.warning(f"🚨 Stopping distance exceeds {max_scale} m — Off the scale!")
