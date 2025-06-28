@@ -70,14 +70,39 @@ ax.legend()
 
 st.pyplot(fig)
 
-# Display distances
-st.markdown(
-    f"""
-    ### Distances:
-    
-    - **Thinking Distance:** {thinking_distance:.1f} m  
-    - **Braking Distance:** {braking_distance:.1f} m  
-    - **Total Stopping Distance:** {stopping_distance:.1f} m  
-    """
-)
+# --- Distances Output ---
+st.markdown(f"""
+### Distances:
+- **Thinking Distance:** {thinking_distance:.1f} m  
+- **Braking Distance:** {braking_distance:.1f} m  
+- **Total Stopping Distance:** {stopping_distance:.1f} m  
+""")
 
+# --- Visual Scale ---
+max_scale = 300  # Max length of ruler in meters
+
+fig2, ax2 = plt.subplots(figsize=(8, 1.5))
+ax2.set_xlim(0, max_scale)
+ax2.set_ylim(0, 1)
+ax2.axis('off')
+
+# Draw ruler baseline
+ax2.hlines(0.5, 0, max_scale, color='black', linewidth=2)
+
+# Draw thinking distance (orange bar)
+ax2.barh(0.5, min(thinking_distance, max_scale), height=0.2, color='orange', alpha=0.6, label='Thinking Distance')
+
+# Draw braking distance (purple bar) immediately after thinking distance
+brake_start = min(thinking_distance, max_scale)
+brake_length = min(braking_distance, max_scale - brake_start)
+ax2.barh(0.5, brake_length, left=brake_start, height=0.2, color='purple', alpha=0.6, label='Braking Distance')
+
+# Add scale ticks every 50 meters
+for tick in range(0, max_scale + 1, 50):
+    ax2.vlines(tick, 0.4, 0.6, color='black')
+    ax2.text(tick, 0.65, f'{tick} m', ha='center', fontsize=8)
+
+ax2.set_title("Stopping Distance Scale (up to 300 m)")
+ax2.legend(loc='upper right')
+
+st.pyplot(fig2)
