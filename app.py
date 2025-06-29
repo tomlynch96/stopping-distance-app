@@ -28,7 +28,7 @@ st.sidebar.caption("Typical values:\n- Small Car: 1000 kg\n- SUV: 1500 kg\n- Tru
 # --- Speed ---
 st.sidebar.subheader("Initial Speed (m/s)")
 v0 = st.sidebar.slider('Speed', min_value=10, max_value=50, value=30, step=1)
-st.sidebar.caption("Typical values:\n- City Driving: 15 m/s (54 km/h)\n- Rural Road: 25 m/s (90 km/h)\n- Motorway: 40 m/s (144 km/h)")
+st.sidebar.caption("Typical values:\n- City Driving: 10 m/s (22mph)\n- Rural Road: 20 m/s (45mph)\n- Motorway: 30 m/s (67 mph)")
 
 # --- Reaction Time ---
 st.sidebar.subheader("Reaction Time (s)")
